@@ -44,7 +44,8 @@
                     <form id="addForm" action="${PATH}/admin/doAdd" method="post">
                         <div class="form-group">
                             <label for="exampleInputPassword1">登陆账号</label>
-                            <input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登陆账号">
+                            <input type="text" class="form-control" id="loginacct" name="loginacct"
+                                   placeholder="请输入登陆账号">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">用户名称</label>
@@ -55,8 +56,11 @@
                             <input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱地址">
                             <p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
                         </div>
-                        <button id="saveBtn" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-                        <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+                        <button id="saveBtn" type="button" class="btn btn-success"><i
+                                class="glyphicon glyphicon-plus"></i> 新增
+                        </button>
+                        <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置
+                        </button>
                     </form>
                 </div>
             </div>
@@ -79,7 +83,7 @@
         });
     });
 
-    $("#saveBtn").click(function(){
+    $("#saveBtn").click(function () {
         $("#addForm").submit();
     });
 

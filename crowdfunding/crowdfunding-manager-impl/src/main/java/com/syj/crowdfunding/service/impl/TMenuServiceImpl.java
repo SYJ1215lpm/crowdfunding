@@ -1,6 +1,7 @@
 package com.syj.crowdfunding.service.impl;
 
 import com.syj.crowdfunding.bean.TMenu;
+import com.syj.crowdfunding.bean.TMenuExample;
 import com.syj.crowdfunding.mapper.TMenuMapper;
 import com.syj.crowdfunding.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,10 @@ public class TMenuServiceImpl implements IMenuService {
         }
 
         return menuList;
+    }
+
+    public List<TMenu> listMenuTree() {
+        TMenuExample example = new TMenuExample();
+        return menuMapper.selectByExample(example);
     }
 }
