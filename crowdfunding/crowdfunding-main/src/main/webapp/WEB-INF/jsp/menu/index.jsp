@@ -47,6 +47,82 @@
                         </div>
                 </div>
         </div>
+
+
+
+
+        <!-- 添加数据 模态框 -->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">添加菜单</h4>
+                    </div>
+                    <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">菜单名称</label>
+                        <input type="hidden" name="pid">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="请输入菜单名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="url">菜单URL</label>
+                        <input type="text" class="form-control" id="url" name="url" placeholder="请输入菜单URL">
+                    </div>
+                    <div class="form-group">
+                        <label for="icon">菜单图标</label>
+                        <input type="text" class="form-control" id="icon" name="icon" placeholder="请输入菜单图标">
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button id="saveBtn" type="button" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- 添加数据 模态框 -->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改菜单</h4>
+                    </div>
+                    <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">菜单名称</label>
+                        <input type="hidden" name="id">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="请输入菜单名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="url">菜单URL</label>
+                        <input type="text" class="form-control" id="url" name="url" placeholder="请输入菜单URL">
+                    </div>
+                    <div class="form-group">
+                        <label for="icon">菜单图标</label>
+                        <input type="text" class="form-control" id="icon" name="icon" placeholder="请输入菜单图标">
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button id="updateBtn" type="button" class="btn btn-primary">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
         <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
         <script>
                 function adminList() {
@@ -84,7 +160,9 @@
                                     },
                                     addHoverDom: function(treeId, treeNode){   //treeNode节点 -> TMenu对象设置鼠标移到节点上，在后面显示一个按钮
                                         var aObj = $("#" + treeNode.tId + "_a");
-                                        aObj.attr("href","####");
+                                        aObj.onclick = function () {
+                                            return false;
+                                        }
                                         if (treeNode.editNameFlag || $("#btnGroup"+treeNode.tId).length>0) return;
                                         var s = '<span id="btnGroup'+treeNode.tId+'">';
                                         if ( treeNode.level == 0 ) { //根节点
@@ -118,6 +196,53 @@
                             treeObj.expandAll(true);
                         });
                  }
+
+
+        // 添加 菜单模态框
+        function addBtn(id){
+            $("#addModal").modal({
+                show:true,
+                backdrop:'static',
+                keyboard:false
+            });
+            $("#addModal input[name='pid']").val(id);
+        }
+        // 保存菜单新增数据
+        $("#saveBtn").click(function(){
+        var pid = $("#addModal input[name='pid']").val();
+        var name = $("#addModal input[name='name']").val();
+        var url = $("#addModal input[name='url']").val();
+        var icon = $("#addModal input[name='icon']").val();
+
+        $.ajax({
+            type:"post",
+            url:"${PATH}/menu/addMenu",
+            data:{
+                pid:pid,
+                name:name,
+                url:url,
+                icon:icon
+            },
+            beforeSend:function(){
+                return true ;
+            },
+            success:function(result){
+                if("ok"==result){
+                layer.msg("保存成功",{time:1000},function(){
+                    $("#addModal").modal('hide');
+                    $("#addModal input[name='pid']").val("");
+                    $("#addModal input[name='name']").val("");
+                    $("#addModal input[name='url']").val("");
+                    $("#addModal input[name='icon']").val("");
+                    initTree();
+                });
+                }else{
+                    layer.msg("保存失败");
+                }
+            }
+        });
+        });
+
 
 
         </script>

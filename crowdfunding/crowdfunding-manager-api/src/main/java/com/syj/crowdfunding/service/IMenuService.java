@@ -18,4 +18,6 @@ public interface IMenuService {
      * @return
      */
     List<TMenu> listMenuTree();
+
+    Boolean addMenu(TMenu menu);
 }

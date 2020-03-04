@@ -6,6 +6,7 @@ import com.syj.crowdfunding.mapper.TMenuMapper;
 import com.syj.crowdfunding.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.provider.Sun;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,5 +44,10 @@ public class TMenuServiceImpl implements IMenuService {
     public List<TMenu> listMenuTree() {
         TMenuExample example = new TMenuExample();
         return menuMapper.selectByExample(example);
+    }
+
+    public Boolean addMenu(TMenu menu) {
+        int success = menuMapper.insert(menu);
+        return success > 0;
     }
 }

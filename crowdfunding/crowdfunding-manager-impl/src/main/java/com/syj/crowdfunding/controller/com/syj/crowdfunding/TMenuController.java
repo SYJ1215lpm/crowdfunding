@@ -15,22 +15,30 @@ import java.util.List;
  * @date 2020/3/2
  */
 @Controller
+@RequestMapping("menu")
 public class TMenuController {
 
     @Autowired
     private IMenuService menuService;
 
-    @RequestMapping("/menu/index")
-    public String index(){
+    @RequestMapping("/index")
+    public String index() {
         return "menu/index";
     }
 
 
     @ResponseBody
-    @RequestMapping("/menu/loadTree")
-    public List<TMenu> loadTree(){
-        List<TMenu>  list = menuService.listMenuTree();
+    @RequestMapping("/loadTree")
+    public List<TMenu> loadTree() {
+        List<TMenu> list = menuService.listMenuTree();
         return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/addMenu")
+    public String addMenu(TMenu menu) {
+        Boolean success = menuService.addMenu(menu);
+        return "ok";
     }
 
 
