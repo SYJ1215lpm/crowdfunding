@@ -1,0 +1,10 @@
+.idea/
+.classpath
+.project
+.settings/
+*/target/
+rebel.xml
+*.iml
+LOG_HOME_IS_UNDEFINED/
+logs/
+bestsign-sdk-logs
